@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>DTO Table</title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 <style>
 * {
 	margin: 0;
@@ -44,45 +45,17 @@ footer {
 	border-radius: 5px;
 	cursor: pointer;
 }
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 50px;
-}
-
-th, td {
-	padding: 12px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
-}
-
-th {
-	background-color: #f2f2f2;
-	font-weight: bold;
-}
-a {
-	padding: 10px;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-h4{
-    color: green;
-}
-
 </style>
 </head>
 <body>
 
-	<header>
+<header>
 		<button class="header-home">Home</button>
 	</header>
 
 
 	<div class="container mt-5">
-		<form id="land-records-form" action="readVillage" method="post">
+		<form id="land-records-form" action="viewUser" method="post">
 			<div class="row">
 				<div class="col-md-2">
 
@@ -127,53 +100,42 @@ h4{
 			</div>
 		</form>
 	</div>
-
-<div>
-	<table>
-		<thead>
-			<tr>
-				<th>Owner Name</th>
-				<th>Mobile Number</th>
-				<th>Aadhaar Number</th>
-				<th>Hissa Number</th>
-				<th>Survey Number</th>
-				<th>Year</th>
-				<th>Edit</th>
-				<th>Delete</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-		<c:forEach var = "dtos" items = "${vlg}">
-				<tr>
-					<td>${dtos.ownerName}</td>
-					<td>${dtos.mobileNumber}</td>
-					<td>${dtos.aadhaarNumber}</td>
-					<td>${dtos.hissaNumber}</td>
-					<td>${dtos.surveyNumber}</td>
-					<td>${dtos.year}</td>
-					<td><button type="submit" class="btn btn-primary"><a  href="getNumber?hissaNumber=${dtos.hissaNumber}&surveyNumber=${dtos.surveyNumber}">Edit</a></button></td>
-					<td>
-					<form action="delete" method="get">
-					<input type="hidden" name="hissaNumber" value="${dtos.hissaNumber}">
-					<input type="hidden" name="surveyNumber" value="${dtos.surveyNumber}">
-					<button type="submit" class="btn btn-primary">Delete</button>
-					
-					</form>
-					 </td>
-					
-				</tr>
-			</c:forEach>
-		</tbody>
-		
-	</table>
 	
+	<div class="container mt-5">
+		<form id="land-records-form" action="userCard" method="post">
+			<div class="row">
+				
+				<div class="col-md-3">
+					<label for="surveyNumber">Survey Number:</label> 
+					<select class="form-control" id="surveyNumber" name="surveyNumber">
+						<option value="">Select Survey Number</option>
+	                    <c:forEach var="list" items="${view}">
+	                    <option value="${list.surveyNumber}">${list.surveyNumber}</option>
+	                    </c:forEach>
+					</select>
+				</div>
+
+                <div class="col-md-3">
+				<label for="hissaNumber">Hissa Number:</label> 
+				<select class="form-control" id="hissaNumber" name="hissaNumber">
+						<option value="">Select Hissa Number</option>
+	                    <c:forEach var="list" items="${view}">
+	                    <option value="${list.hissaNumber}">${list.hissaNumber}</option>
+	                    </c:forEach>
+					</select>
+				</div>
+				
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-primary">Records</button>
+				</div>
+				
+			</div>
+		</form>
 	</div>
-	<h4>${remove}</h4>
 
+	
 	<footer> &copy;2023 shuheb.xworkz@gmail.com </footer>
-
-
+	
 	<script type="text/javascript">
 		function populateDistrict(state, district) {
 			var s1 = document.getElementById(state);
@@ -297,7 +259,6 @@ h4{
 			}
 		}
 	</script>
-
-
+	
 </body>
 </html>

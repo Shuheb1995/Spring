@@ -2,6 +2,8 @@ package com.xworkz.landrecords.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,20 +14,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xworkz.landrecords.dto.AdminDto;
 import com.xworkz.landrecords.dto.LandRecordsDto;
+
 import com.xworkz.landrecords.service.LandRecordsService;
+
 
 @Controller
 public class LandRecordsController {
 
 	@Autowired
 	private LandRecordsService service;
+	
+	
 
 	@RequestMapping(value = "/getOtp", method = RequestMethod.GET)
-	public String generateOtp(AdminDto dto, @RequestParam String email, Model model) {
+	public String generateOtp(AdminDto dto, @RequestParam String email, Model model , HttpSession session) {
 
 		boolean result = service.signIn(email, model);
 		System.out.println(email);
 		if (result) {
+			session.setAttribute("email1", email);
 			System.out.println("Email Verified ,Enter the OTP");
 			model.addAttribute("dto", result);
 			return "Home";
@@ -37,12 +44,16 @@ public class LandRecordsController {
 	}
 
 	@RequestMapping(value = "/checkOtp", method = RequestMethod.POST)
-	public String otpValidator(@RequestParam String otp, Model model) {
-
-		AdminDto dto = service.otpValidator(otp, model);
-		if (dto != null) {
-			System.out.println("OTP is Verified");
-			model.addAttribute("dto", dto);
+	public String otpValidator(@RequestParam String otp, Model model , HttpSession session) {
+		
+		String email = (String) session.getAttribute("email1");
+		System.out.println(email);
+	
+		if (email != null) {
+			
+			AdminDto found = service.otpValidator(otp, model);
+			session.setAttribute("Adminee", found);
+			
 			return "Admin";
 		}
 		System.out.println("Otp is Incorrect");
@@ -106,6 +117,35 @@ public class LandRecordsController {
 			return "Edit";
 		}
 		return null;
+		
+	}
+	
+	
+	@RequestMapping(value = "/viewUser" , method = RequestMethod.POST)
+	public String userView(@RequestParam String village , Model model) {
+		
+		List<LandRecordsDto> viewData = service.findByVillage(village, model);
+		System.out.println(viewData);
+		if(viewData !=null) {
+			model.addAttribute("view", viewData);
+			System.out.println("Data is present");
+			return "UserView";
+		}
+		model.addAttribute("read", "Record not found");
+		return "UserView";	
+	}
+	
+	@RequestMapping(value = "/userCard" , method = RequestMethod.POST)
+	public String viewUser(@RequestParam String hissaNumber , @RequestParam String surveyNumber , Model model) {
+		
+		LandRecordsDto data = service.ifExist(hissaNumber, surveyNumber, 0, model);
+		if(data != null) {
+			model.addAttribute("read", data);
+			System.out.println("Data is present");
+			return "UserView";
+		}
+		model.addAttribute("reading", "No records found");
+		return "UserView";
 		
 	}
 

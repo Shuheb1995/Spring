@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Land_Records")
-//@NamedQuery(name = "findNum" , query = "Select dto from LandRecordsDto dto where dto.mobileNumber=:mn and dto.status=st")
 @NamedQuery(name = "updateDto" , query = "update LandRecordsDto dto set dto.ownerName=:on, dto.mobileNumber=:mn, dto.aadhaarNumber=:an, dto.year=:yr where dto.hissaNumber=:hn and surveyNumber=:sn and dto.status=:st")         
 @NamedQuery(name = "delete" , query = "update LandRecordsDto dto set dto.status=1 where dto.hissaNumber=:hn and dto.surveyNumber=:sn")
 @NamedQuery(name = "findVillage" , query = "Select dto from LandRecordsDto dto where dto.village=:vg and dto.status=:st")

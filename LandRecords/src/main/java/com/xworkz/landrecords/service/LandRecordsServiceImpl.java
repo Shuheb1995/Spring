@@ -20,7 +20,6 @@ import com.xworkz.landrecords.dto.AdminDto;
 import com.xworkz.landrecords.dto.LandRecordsDto;
 import com.xworkz.landrecords.repo.LandRecordsRepo;
 
-import net.bytebuddy.utility.dispatcher.JavaDispatcher.IsConstructor;
 
 @Service
 public class LandRecordsServiceImpl implements LandRecordsService {
@@ -161,7 +160,12 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 	public boolean saveRecords(LandRecordsDto dto, Model model) {
 		if (validate(dto, model)) {
 			System.out.println("Saving is in progress");
-			return repo.saveRecords(dto);
+			LandRecordsDto record = ifExist(dto.getHissaNumber(), dto.getSurveyNumber(), 0, model);
+			if(record!=null) {
+				return repo.saveRecords(dto);
+			}
+			model.addAttribute("exist", "Record with this Hissa or Survey number is already exist");
+			return false;	
 		}
 		return false;
 	}
@@ -259,7 +263,13 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 	public List<LandRecordsDto> findByVillage(String village, Model model) {
 
 		if (village != null && !village.isEmpty()) {
-			return repo.findByVillage(village , 0);
+			try {
+				return repo.findByVillage(village , 0);
+			}catch (Exception e) {
+				System.out.println("No result found");
+				return null;
+			}
+			
 		}
 		System.out.println("Entered Village is invalid");
 		return null;
@@ -270,7 +280,14 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 		
 		if (hissaNumber != null && !hissaNumber.isEmpty()) {
 			if (surveyNumber != null && !surveyNumber.isEmpty()) {
-				return repo.ifExist(hissaNumber, surveyNumber, 0);
+				try {
+					LandRecordsDto dto = repo.ifExist(hissaNumber, surveyNumber, 0);
+					System.out.println(dto);
+					return dto;
+				} catch (Exception e) {
+					
+					e.printStackTrace();
+				}
 			}
 			return null;
 		}

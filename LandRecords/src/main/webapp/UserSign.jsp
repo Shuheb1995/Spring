@@ -57,14 +57,13 @@
 <body>
     <header>
     <div>
-         <h4 style = "color:red">${Adminee.adminName}</h4>
-        <a class="header-button" href="Home.jsp">Logout</a>
+        <a class="header-button" href="Index.jsp">Home</a>
     </div>
     </header>
 
     <div class="RecordButtons">
-        <a href="Add.jsp">Add Records</a>
-        <a href="Read.jsp">View Records</a>
+        <a href="UserRegister.jsp">Sign Up</a>
+        <a href="UserLogIn.jsp">Sign In</a>
     </div>
 
     <footer>
