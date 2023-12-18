@@ -1,5 +1,6 @@
 package com.xworkz.landrecords.dto;
 
+import javax.enterprise.inject.Typed;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,13 +11,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Land_Records")
-@NamedQuery(name = "updateDto" , query = "update LandRecordsDto dto set dto.ownerName=:on, dto.mobileNumber=:mn, dto.aadhaarNumber=:an, dto.year=:yr where dto.hissaNumber=:hn and surveyNumber=:sn and dto.status=:st")         
+@NamedQuery(name = "updateDto", query = "update LandRecordsDto dto set dto.ownerName = :owner, dto.mobileNumber = :mn, dto.aadhaarNumber = :an, dto.year = :yr where dto.hissaNumber = :hn and dto.surveyNumber = :sn and dto.status = :st")
 @NamedQuery(name = "delete" , query = "update LandRecordsDto dto set dto.status=1 where dto.hissaNumber=:hn and dto.surveyNumber=:sn")
 @NamedQuery(name = "findVillage" , query = "Select dto from LandRecordsDto dto where dto.village=:vg and dto.status=:st")
 @NamedQuery(name = "ifExist" , query = " Select dto from LandRecordsDto dto where dto.hissaNumber=:hn and dto.surveyNumber=:sn and dto.status=:st")
+@NamedQuery(name = "findHobliAndVillage" , query = "Select dto from LandRecordsDto dto where dto.hobli=:hbl and dto.village=:vg ")
 public class LandRecordsDto {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String state;
 	private String district;

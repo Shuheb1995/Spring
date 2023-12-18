@@ -4,10 +4,14 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Login Form</title>
+    <title>Update Password</title>
     <!-- Link Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+    
+        body{
+            background-color: rgb(105, 162, 167);
+        }
         header {
             background-color: #333;
             color: white;

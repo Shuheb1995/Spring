@@ -7,14 +7,16 @@
 <title>Land Records</title>
 
 <style>
-        /* Add your CSS styles for header and footer here */
+     
         body {
+            background-image: url('https://www.legalraasta.com/blog/wp-content/uploads/2019/02/bhoomi_cover.jpg');
+            background-size: cover;
             font-family: Arial, sans-serif;
         }
         header {
             background-color: #333;
             color: white;
-            padding: 10px;
+            padding: 15px;
             text-align: left;
         }   
         .header-user{
@@ -28,6 +30,12 @@
             position: fixed;
             width: 100%;
             bottom: 0;
+        }
+        .text{
+        
+         color: brown;
+         text-align: center;
+         margin-top: 180px; 
         }
     </style>
     
@@ -43,6 +51,10 @@
     <a class="header-admin" href="Home.jsp">Admin</a>
     <a class="header-user" href="UserSign.jsp">User</a>
     </header>
+    
+    <div class = "text">
+    <h1><b>Bhoomi Karnataka Land Records</b></h1>>
+    </div>
 
 <footer>
         &copy; shuheb.xworkz@gmail.com

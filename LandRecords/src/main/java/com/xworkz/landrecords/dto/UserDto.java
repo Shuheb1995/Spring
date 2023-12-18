@@ -9,11 +9,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "UserRecords")
-@NamedQuery(name = "ifExist" , query = "Select dto from UserDto dto where dto.email1=:eml and dto.password=:pswrd")
+@NamedQuery(name = "ifExist1" , query = "Select dto from UserDto dto where dto.email1=:eml and dto.password=:pswrd")
 @NamedQuery(name = "emailExist" , query = "Select dto from UserDto dto where dto.email1=:eml")
 @NamedQuery(name = "passwordExist" , query = "Select dto from UserDto dto where dto.password=:pswrd")
-@NamedQuery(name = "updateOtp" , query = "update UserDto dto set dto.otp=:op where dto.email1=:eml")
-@NamedQuery(name = "findOtp" , query = "Select dto from UserDto dto where dto.otp=:ot")
+@NamedQuery(name = "updateOtp1" , query = "update UserDto dto set dto.otp=:op where dto.email1=:eml")
+@NamedQuery(name = "findOtp1" , query = "Select dto from UserDto dto where dto.otp=:ot")
 @NamedQuery(name = "updatePassword" , query = "update UserDto dto set dto.password=:op , dto.confirmPassword=:cp where dto.email1=:eml")
 
 public class UserDto {

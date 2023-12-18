@@ -3,36 +3,46 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
- <title>Land Records</title>
+ <title>Add Land Records</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
+
         body {
+            background-color: rgb(105, 162, 167);
             font-family: Arial, sans-serif;
         }
+
         header {
             background-color: #333;
             color: white;
             padding: 10px;
-            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         .container {
-            max-width: 600px; /* Adjust max-width as needed */
+            max-width: 600px;
+            /* Adjust max-width as needed */
             margin: 0 auto;
             padding: 20px;
         }
+
         footer {
             background-color: #333;
             color: white;
             padding: 10px;
             text-align: center;
-           
             width: 100%;
             bottom: 0;
+            position: fixed;
         }
+
         .header-home {
             padding: 10px;
             background-color: #007BFF;
@@ -41,19 +51,21 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        h4{
-        color: red;
+
+        h4 {
+            color: red;
         }
-        
+
     </style>
     
     
 </head>
 <body>
 <header>
-        <h4 style = "color:red">${Adminee.adminName}</h4>
-        <button class="header-home">Home</button>
-    </header>
+    <img alt="image" src="${names.adminImagePath}">
+    <h1 class="adminName" style="color:white">${names.adminName}</h1>
+    <button class="header-home" href="Index.jsp">Home</button>
+</header>
 
     <div class="container mt-5">
         <form id="land-records-form" action="saving" method="post">
@@ -235,15 +247,15 @@
             }else if (s1.value == "Sagara") {
                 hobliArray = ['--selectHobli|--Select Hobli--', 'Anandapura|Anandapura','Talaguppa|Talaguppa'];
             }else if (s1.value == "Shikaripura") {
-                hobliArray = ['--selectHobli|--Select Hobli--', '1|1','2|2'];
+                hobliArray = ['--selectHobli|--Select Hobli--', 'Anjanapura|Anjanapura','Hosuru|Hosuru'];
             }else if (s1.value == "Turuvakere") {
-                hobliArray = ['--selectHobli|--Select Hobli--', '1|1','2|2'];
+                hobliArray = ['--selectHobli|--Select Hobli--', 'Dabbeghatta|Dabbeghatta','Mayasandra|Mayasandra'];
             }else if (s1.value == "Kunigal") {
-                hobliArray = ['--selectHobli|--Select Hobli--', '1|1','2|2'];
+                hobliArray = ['--selectHobli|--Select Hobli--', 'Amrutturu|Amrutturu','Kottagere|Kottagere'];
             }else if (s1.value == "Tiptur") {
-                hobliArray = ['--selectHobli|--Select Hobli--', '1|1','2|2'];
+                hobliArray = ['--selectHobli|--Select Hobli--', 'Honavalli|Honavalli','Kibbanahalli|Kibbanahalli'];
             }else if (s1.value == "Madhugiri") {
-                hobliArray = ['--selectHobli|--Select Hobli--', '1|1','2|2'];
+                hobliArray = ['--selectHobli|--Select Hobli--', 'Dodderi|Dodderi','Midigeshi|Midigeshi'];
             }
     
             for (var i = 0; i < hobliArray.length; i++) {
@@ -321,7 +333,29 @@
                 villageArray = ['--selectVillage|--Select Village--', 'Achapura|Achapura', 'Aduru|Aduru', 'Bilagodi|Bilagodi', 'Chipli|Chipli'];
             }else if (s1.value == "Talaguppa") {
                 villageArray = ['--selectVillage|--Select Village--', 'Arehada|Arehada', 'Bellenne|Bellenne', 'Kanase|Kanase', 'Kelavi|Kelavi'];
+            }else if (s1.value == "Anjanapura") {
+                villageArray = ['--selectVillage|--Select Village--', 'Attibailu|Attibailu', 'Bhadrapura|Bhadrapura', 'Churchigondi|Churchigondi', 'Eesuru|Eesuru'];
+            }else if (s1.value == "Hosuru") {
+                villageArray = ['--selectVillage|--Select Village--', 'Baalekoppa|Baalekoppa', 'Beguru|Beguru', 'Chennahalli|Chennahalli', 'Dupadahalli|Dupadahalli'];
+            }else if (s1.value == "Dabbeghatta") {
+                villageArray = ['--selectVillage|--Select Village--', 'Abalakatte|Abalakatte', 'Benkikere|Benkikere', 'Devihalli|Devihalli', 'Hulikal|Hulikal'];
+            }else if (s1.value == "Mayasandra") {
+                villageArray = ['--selectVillage|--Select Village--', 'Ajjanahalli|Ajjanahalli', 'Byalahalli|Byalahalli', 'Chikkapura|Chikkapura', 'Daasihalli|Daasihalli'];
+            }else if (s1.value == "Amrutturu") {
+                villageArray = ['--selectVillage|--Select Village--', 'Arjunahalli|Arjunahalli', 'Bisinele|Bisinele', 'Chinavara|Chinavara', 'Halagere|Halagere'];
+            }else if (s1.value == "Kottagere") {
+                villageArray = ['--selectVillage|--Select Village--', 'Baagenahalli|Baagenahalli', 'Dasanapura|Dasanapura', 'Gunnagere|Gunnagere', 'Janagere|Janagere'];
+            }else if (s1.value == "Honavalli") {
+                villageArray = ['--selectVillage|--Select Village--', 'Aluru|Aluru', 'Anivala|Anivala', 'Bairapura|Bairapura', 'Chowlihalli|Chowlihalli'];
+            }else if (s1.value == "Kibbanahalli") {
+                villageArray = ['--selectVillage|--Select Village--', 'Aralaguppe|Aralaguppe', 'Ballekatte|Ballekatte', 'Biligere|Biligere', 'Hatna|Hatna'];
+            }else if (s1.value == "Dodderi") {
+                villageArray = ['--selectVillage|--Select Village--', 'Adavikatanahalli|Adavikatanahalli', 'Belladamadu|Belladamadu', 'Borakunte|Borakunte', 'Chandragiri|Chandragiri'];
+            }else if (s1.value == "Midigeshi") {
+                villageArray = ['--selectVillage|--Select Village--', 'Adavihalli|Adavihalli', 'Bedatturu|Bedatturu', 'Kasapura|Kasapura', 'Neelihalli|Neelihalli'];
             }
+            
+            
             
             for (var i = 0; i < villageArray.length; i++) {
                 var option = villageArray[i].split("|");

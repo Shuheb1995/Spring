@@ -3,13 +3,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>My Web Page</title>
+<title>UserRegister</title>
 <style>
     * {
         margin: 0;
         padding: 0;
     }
     body {
+        background-color: rgb(105, 162, 167);
         font-family: Arial, sans-serif;
     }
     header {

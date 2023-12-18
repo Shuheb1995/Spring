@@ -8,6 +8,9 @@
     <!-- Link Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body{
+            background-color: rgb(105, 162, 167);
+        }
         header {
             background-color: #333;
             color: white;
@@ -60,7 +63,7 @@
             </div>
             <div class="form-group">
                 <label for="email1">Email:</label>
-                <input type="email1" id="email1" name="email1" class="form-control" required>
+                <input type="email" id="email1" name="email1" class="form-control" required>
                 <h4 style = "color:red">${userEmail}</h4>
                  <h4 style = "color:red">${emailCheck}</h4>
             </div>

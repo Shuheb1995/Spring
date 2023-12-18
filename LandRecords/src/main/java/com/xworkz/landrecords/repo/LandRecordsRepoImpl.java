@@ -120,10 +120,11 @@ public class LandRecordsRepoImpl implements LandRecordsRepo {
 
 	@Override
 	public List<LandRecordsDto> findByVillage(String village , int status) {
-		
+		System.out.println("Repo starts");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
+		
 		TypedQuery<LandRecordsDto> query = em.createNamedQuery("findVillage", LandRecordsDto.class);
+		System.out.println(village);
 		query.setParameter("vg", village);
 		query.setParameter("st", status);
 		List<LandRecordsDto> dto = query.getResultList();
@@ -139,6 +140,17 @@ public class LandRecordsRepoImpl implements LandRecordsRepo {
 		query.setParameter("sn", surveyNumber);
 		query.setParameter("st", status);
 		LandRecordsDto dto = query.getSingleResult();
+		return dto;
+	}
+
+	@Override
+	public List<LandRecordsDto> findByHobliAndVillage(String hobli, String village) {
+		System.out.println("findByHobliAndVillage repo method starts");
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<LandRecordsDto> query = em.createNamedQuery("findHobliAndVillage", LandRecordsDto.class);
+		query.setParameter("hbl", hobli);
+		query.setParameter("vg", village);
+		List<LandRecordsDto> dto = query.getResultList();
 		return dto;
 	}
 

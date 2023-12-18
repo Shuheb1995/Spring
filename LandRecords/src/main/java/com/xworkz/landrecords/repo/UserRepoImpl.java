@@ -37,11 +37,11 @@ public class UserRepoImpl implements UserRepo {
 	public UserDto ifExist(String email1, String password) {
 
 		EntityManager em = emf.createEntityManager();
-		TypedQuery<UserDto> query = em.createNamedQuery("ifExist", UserDto.class);
+		TypedQuery<UserDto> query = em.createNamedQuery("ifExist1", UserDto.class);
 		query.setParameter("eml", email1);
 		query.setParameter("pswrd", password);
 		UserDto dto = query.getSingleResult();
-
+        System.out.println("ifExist Repo");
 		return dto;
 	}
 
@@ -71,7 +71,7 @@ public class UserRepoImpl implements UserRepo {
 	public boolean updateOtpByEmail(String otp, String email1) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		Query query = em.createNamedQuery("updateOtp");
+		Query query = em.createNamedQuery("updateOtp1");
 		query.setParameter("op", otp);
 		query.setParameter("eml", email1);
 		query.executeUpdate();
@@ -94,7 +94,7 @@ public class UserRepoImpl implements UserRepo {
 
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		TypedQuery<UserDto> query = em.createNamedQuery("findOtp", UserDto.class);
+		TypedQuery<UserDto> query = em.createNamedQuery("findOtp1", UserDto.class);
 		query.setParameter("ot", otp);
 		UserDto dto = query.getSingleResult();
 

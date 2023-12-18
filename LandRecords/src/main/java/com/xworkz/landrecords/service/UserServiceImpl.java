@@ -141,13 +141,13 @@ public class UserServiceImpl implements UserService {
 	public UserDto ifExist(String email1, String password, Model model) {
 		try {
 			UserDto exist = repo.ifExist(email1, password);
-
+            System.out.println(exist);
 			if (exist != null) {
 				model.addAttribute("exist", "Account already exist");
 				return exist;
 			}
 		} catch (NoResultException e) {
-
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -158,9 +158,16 @@ public class UserServiceImpl implements UserService {
 		try {
 			if (email1 != null) {
 				if (password != null) {
-					UserDto dataExist = ifExist(email1, password, model);
+					UserDto dataExist = mailExist(email1);
+					System.out.println(dataExist);
 					if (dataExist != null) {
-						return dataExist;
+						String dcPswrd = decryptPWD(dataExist.getPassword(), "ThisIsSecretKey");
+						System.out.println(dcPswrd);
+						if(dcPswrd.equals(password)) {
+							return dataExist;
+						}
+						System.out.println("Wrong Password");
+						return null;
 					}
 					model.addAttribute("data", "Account not found");
 					return null;

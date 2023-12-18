@@ -28,6 +28,8 @@ public interface LandRecordsService {
 	public List<LandRecordsDto> findByVillage(String village , Model model);
 	
 	public LandRecordsDto ifExist(String hissaNumber , String surveyNumber , int status , Model model);
+	
+	public List<LandRecordsDto> findByHobliAndVillage(String hobli , String village);
 
 
 	

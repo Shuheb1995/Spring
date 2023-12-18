@@ -32,7 +32,7 @@ public class LandRecordsController {
 		boolean result = service.signIn(email, model);
 		System.out.println(email);
 		if (result) {
-			session.setAttribute("email1", email);
+			session.setAttribute("mail", email);
 			System.out.println("Email Verified ,Enter the OTP");
 			model.addAttribute("dto", result);
 			return "Home";
@@ -46,16 +46,21 @@ public class LandRecordsController {
 	@RequestMapping(value = "/checkOtp", method = RequestMethod.POST)
 	public String otpValidator(@RequestParam String otp, Model model , HttpSession session) {
 		
-		String email = (String) session.getAttribute("email1");
-		System.out.println(email);
+		String name = (String) session.getAttribute("mail");
+		System.out.println(name);
 	
-		if (email != null) {
+		if (name != null) {
+			AdminDto found = service.findByEmail(name,model);
+			session.setAttribute("names", found);
+			AdminDto otpFound = service.otpValidator(otp, model);
+			if(otpFound  != null) {
+				model.addAttribute("otpValidate", found);
+				return "Admin";
+			}
+			return "Home";
 			
-			AdminDto found = service.otpValidator(otp, model);
-			session.setAttribute("Adminee", found);
-			
-			return "Admin";
 		}
+		model.addAttribute("otpWrong", "Otp is  incorrect");
 		System.out.println("Otp is Incorrect");
 		return "Home";
 
@@ -90,7 +95,7 @@ public class LandRecordsController {
 
 		boolean update = service.updateDetailsByHissaAndSurveyNumber(dto, model);
 		if (update) {
-			model.addAttribute("edit", "Updated Successfully");
+			model.addAttribute("edit", update);
 			return "Edit";
 		} else {
 			model.addAttribute("edits", "Not Updated");
@@ -121,16 +126,19 @@ public class LandRecordsController {
 	}
 	
 	
-	@RequestMapping(value = "/viewUser" , method = RequestMethod.POST)
-	public String userView(@RequestParam String village , Model model) {
-		
-		List<LandRecordsDto> viewData = service.findByVillage(village, model);
+	@RequestMapping(value = "/viewUser" , method = RequestMethod.GET)
+	public String userView(@RequestParam String hobli , @RequestParam String village , Model model) {
+		System.out.println("Controller is started");
+		List<LandRecordsDto> viewData = service.findByHobliAndVillage(hobli, village);
+		System.out.println(hobli);
+		System.out.println(village);
 		System.out.println(viewData);
 		if(viewData !=null) {
 			model.addAttribute("view", viewData);
 			System.out.println("Data is present");
 			return "UserView";
 		}
+		System.out.println("Data is not present");
 		model.addAttribute("read", "Record not found");
 		return "UserView";	
 	}

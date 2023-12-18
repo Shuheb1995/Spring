@@ -20,7 +20,6 @@ import com.xworkz.landrecords.dto.AdminDto;
 import com.xworkz.landrecords.dto.LandRecordsDto;
 import com.xworkz.landrecords.repo.LandRecordsRepo;
 
-
 @Service
 public class LandRecordsServiceImpl implements LandRecordsService {
 
@@ -33,6 +32,7 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 		if (email != null && !email.isEmpty()) {
 			try {
 				AdminDto dto = repo.findByEmail(email);
+
 				return dto;
 
 			} catch (Exception e) {
@@ -63,7 +63,7 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 				boolean updateOtp = repo.updateOtpByEmail(otp, email);
 				System.out.println(updateOtp);
 				return true;
-			}
+		}
 			System.out.println("Not Updated");
 			return false;
 		}
@@ -74,16 +74,26 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 	@Override
 	public AdminDto otpValidator(String otp, Model model) {
 		try {
-			AdminDto dto = repo.findOtp(otp);
-			System.out.println(dto);
-			return dto;
+			if(otp != null) {
+				AdminDto dto = repo.findOtp(otp);
+				if(dto.getOtp().equals(otp)) {
+					return dto;
+				}else {
+					model.addAttribute("otpMatch", "Otp is incorrect");
+					return null;
+				}
+				
+			}
+			
+			
 		} catch (Exception e) {
 			System.out.println("OTP is Incorrect");
 			model.addAttribute("otpValidate", "OTP is Incorrect");
 			return null;
 
 		}
-
+		model.addAttribute("findOtp", "otp not found");
+        return null;
 	}
 
 	public boolean validate(LandRecordsDto dto, Model model) {
@@ -161,11 +171,11 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 		if (validate(dto, model)) {
 			System.out.println("Saving is in progress");
 			LandRecordsDto record = ifExist(dto.getHissaNumber(), dto.getSurveyNumber(), 0, model);
-			if(record!=null) {
+			if (record == null) {
 				return repo.saveRecords(dto);
 			}
 			model.addAttribute("exist", "Record with this Hissa or Survey number is already exist");
-			return false;	
+			return false;
 		}
 		return false;
 	}
@@ -220,7 +230,7 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 	public boolean deleteBySurveyNumber(String hissaNumber, String surveyNumber) {
 		if (hissaNumber != null && !hissaNumber.isEmpty()) {
 			if (surveyNumber != null && !surveyNumber.isEmpty()) {
-				return repo.deleteBySurveyNumber(hissaNumber, surveyNumber, 1 );
+				return repo.deleteBySurveyNumber(hissaNumber, surveyNumber, 1);
 			}
 			return false;
 		}
@@ -228,7 +238,7 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 	}
 
 	@Override
-	public boolean updateDetailsByHissaAndSurveyNumber(LandRecordsDto dto , Model model) {
+	public boolean updateDetailsByHissaAndSurveyNumber(LandRecordsDto dto, Model model) {
 
 		if (dto.getOwnerName() != null && !dto.getOwnerName().isEmpty()) {
 			if (dto.getMobileNumber() != null && !dto.getMobileNumber().isEmpty()) {
@@ -237,8 +247,9 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 						if (dto.getHissaNumber() != null && !dto.getHissaNumber().isEmpty()) {
 							if (dto.getSurveyNumber() != null && !dto.getSurveyNumber().isEmpty()) {
 								System.out.println("Ready to edit");
-								return repo.updateDetailsByHissaAndSurveyNumber(dto.getOwnerName(), dto.getMobileNumber(), dto.getAadhaarNumber(),
-										dto.getYear(), dto.getHissaNumber(), dto.getSurveyNumber() , 0);
+								return repo.updateDetailsByHissaAndSurveyNumber(dto.getOwnerName(),
+										dto.getMobileNumber(), dto.getAadhaarNumber(), dto.getYear(),
+										dto.getHissaNumber(), dto.getSurveyNumber(), 0);
 							}
 							System.out.println("surveyNumber is not valid");
 							return false;
@@ -262,14 +273,16 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 	@Override
 	public List<LandRecordsDto> findByVillage(String village, Model model) {
 
+		System.out.println("service starts");
+
 		if (village != null && !village.isEmpty()) {
 			try {
-				return repo.findByVillage(village , 0);
-			}catch (Exception e) {
+				return repo.findByVillage(village, 0);
+			} catch (Exception e) {
 				System.out.println("No result found");
 				return null;
 			}
-			
+
 		}
 		System.out.println("Entered Village is invalid");
 		return null;
@@ -277,7 +290,7 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 
 	@Override
 	public LandRecordsDto ifExist(String hissaNumber, String surveyNumber, int status, Model model) {
-		
+
 		if (hissaNumber != null && !hissaNumber.isEmpty()) {
 			if (surveyNumber != null && !surveyNumber.isEmpty()) {
 				try {
@@ -285,16 +298,34 @@ public class LandRecordsServiceImpl implements LandRecordsService {
 					System.out.println(dto);
 					return dto;
 				} catch (Exception e) {
-					
+
 					e.printStackTrace();
 				}
 			}
 			return null;
 		}
-		
+
 		return null;
 	}
-	
-	
+
+	@Override
+	public List<LandRecordsDto> findByHobliAndVillage(String hobli, String village) {
+
+		if (hobli != null) {
+			if (village != null) {
+				try {
+					return repo.findByHobliAndVillage(hobli, village);
+				} catch (Exception e) {
+					System.out.println("No result found Exception");
+					e.printStackTrace();
+				}
+
+			}
+			System.out.println("village is invalid");
+			return null;
+		}
+		System.out.println("Hobli is invalid");
+		return null;
+	}
 
 }

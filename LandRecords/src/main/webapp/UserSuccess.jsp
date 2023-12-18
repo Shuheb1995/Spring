@@ -4,7 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>UserSuccess</title>
+<style type="text/css">
+body{
+    background-color: rgb(105, 162, 167);
+}
+</style>
 </head>
 <body>
 Registered Successfully....

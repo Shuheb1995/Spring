@@ -32,9 +32,11 @@ public class UserController {
 	public String signIn(@RequestParam String email1, @RequestParam String password, Model model) {
 
 		UserDto dto = service.signIn(email1, password, model);
+		System.out.println(email1);
 		if (dto != null) {
-			model.addAttribute("signIn", dto);
-			return "UserView";
+				model.addAttribute("signIn", dto);
+				return "UserView";
+			
 		}
 		model.addAttribute("signFailed", "No account found");
 		return "UserLogIn";

@@ -22,5 +22,7 @@ public interface LandRecordsRepo {
 	public List<LandRecordsDto> findByVillage(String village , int status);
 	
 	public LandRecordsDto ifExist(String hissaNumber , String surveyNumber , int status);
+	
+	public List<LandRecordsDto> findByHobliAndVillage(String hobli , String village);
 
 }
